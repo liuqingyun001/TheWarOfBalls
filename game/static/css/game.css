@@ -1,0 +1,36 @@
+.balls_war_menu {
+    width: 100%;
+    height: 100%;
+    background-image: url("/static/image/background.jpeg");
+    background-size: 100% 100%;
+
+}
+.balls_war_menu_field {
+    width: 21vw;
+    position: relative;
+    top: 40vh;
+    left: 25vw;
+    user-select: none;
+}
+.balls_war_menu_field_item {
+    color: white;
+    font-size: 6vh;
+    height: 7vh;
+    width: 20vw;
+    font-style: italic;
+    padding: 2vh;
+    text-align: center;
+    background-color: rgba(39, 21, 28, 0.6);
+    border-radius: 10px;
+    letter-spacing: 0.5vw;
+    cursor: pointer;
+}
+.balls_war_menu_field_item:hover {
+    transform:scale(1.2);
+    transition: 500ms;
+}
+.balls_war_playground {
+    width: 100%;
+    height: 100%;
+    user-select: none;
+}
