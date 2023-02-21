@@ -58,23 +58,23 @@ class BallsWarObject {
     constructor(){
         BALLS_WAR_OBJECTS.push(this);
         this.has_called_start = false;
-        this.timedelate = 0;
+        this.timdelta = 0;
     }
 
     start() {
 
     }
 
-    uodate() {
+    update() {
 
     }
 
-    on_destory() {
+    on_destroy() {
 
     }
 
-    destory() {
-        this.on_destory();
+    destroy() {
+        this.on_destroy();
         for(let i = 0;i < BALLS_WAR_OBJECTS.length;i ++){
             if(BALLS_WAR_OBJECTS[i] === this) {
                 BALLS_WAR_OBJECTS.splice(i,1);
@@ -84,22 +84,23 @@ class BallsWarObject {
     }
 }
 
-let last_timestap;
-let BALLS_WAR_ANUMATION = function(timstrap){
+let last_timestamp;
+let BALLS_WAR_ANIMATION = function(timestamp){
     for(let i = 0;i < BALLS_WAR_OBJECTS.length;i ++) {
         let obj = BALLS_WAR_OBJECTS[i];
         if(!obj.has_called_start){
             obj.start();
             obj.has_called_start = true;
         }else {
-            obj.timedelate = timstrap - last_timestap;
+            obj.timedelta = timestamp - last_timestamp;
+            obj.update();
         }
     }
-    last_timestap = timstrap;
-    requestAnimationFrame(BALLS_WAR_ANUMATION);
+    last_timestamp = timestamp;
+    requestAnimationFrame(BALLS_WAR_ANIMATION);
 };
 
-requestAnimationFrame(BALLS_WAR_ANUMATION);class GameMap extends BallsWarObject {
+requestAnimationFrame(BALLS_WAR_ANIMATION);class GameMap extends BallsWarObject {
     constructor(playground) {
         super();
         this.playground = playground;
@@ -112,20 +113,20 @@ requestAnimationFrame(BALLS_WAR_ANUMATION);class GameMap extends BallsWarObject 
 
     }
 
+    render() {
+        this.ctx.fillStyle="rgba(0 , 0, 0)";
+        this.ctx.fillRect(0 , 0, this.ctx.canvas.width, this.ctx.canvas.height);
+        //console.log("render");
+    }
+    
     start() {
-        this.update();
+        //this.render();
     }
 
-    render() {
-        this.ctx.fillStyle = "rgba(0 , 0, 0)";
-        this.ctx.fillRect(0 , 0, this.ctx.canvas.width, this.ctx.canvas.height);
-        console.log("render");
-    }
     update() {
         this.render();
         console.log("123")
     }
-
 }class BallsWarPlayground {
     constructor(root) {
         this.root =root;

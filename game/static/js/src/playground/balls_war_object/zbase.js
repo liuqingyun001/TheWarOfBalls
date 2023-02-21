@@ -5,23 +5,23 @@ class BallsWarObject {
     constructor(){
         BALLS_WAR_OBJECTS.push(this);
         this.has_called_start = false;
-        this.timedelate = 0;
+        this.timdelta = 0;
     }
 
     start() {
 
     }
 
-    uodate() {
+    update() {
 
     }
 
-    on_destory() {
+    on_destroy() {
 
     }
 
-    destory() {
-        this.on_destory();
+    destroy() {
+        this.on_destroy();
         for(let i = 0;i < BALLS_WAR_OBJECTS.length;i ++){
             if(BALLS_WAR_OBJECTS[i] === this) {
                 BALLS_WAR_OBJECTS.splice(i,1);
@@ -31,19 +31,20 @@ class BallsWarObject {
     }
 }
 
-let last_timestap;
-let BALLS_WAR_ANUMATION = function(timstrap){
+let last_timestamp;
+let BALLS_WAR_ANIMATION = function(timestamp){
     for(let i = 0;i < BALLS_WAR_OBJECTS.length;i ++) {
         let obj = BALLS_WAR_OBJECTS[i];
         if(!obj.has_called_start){
             obj.start();
             obj.has_called_start = true;
         }else {
-            obj.timedelate = timstrap - last_timestap;
+            obj.timedelta = timestamp - last_timestamp;
+            obj.update();
         }
     }
-    last_timestap = timstrap;
-    requestAnimationFrame(BALLS_WAR_ANUMATION);
+    last_timestamp = timestamp;
+    requestAnimationFrame(BALLS_WAR_ANIMATION);
 };
 
-requestAnimationFrame(BALLS_WAR_ANUMATION);
+requestAnimationFrame(BALLS_WAR_ANIMATION);
