@@ -114,18 +114,68 @@ requestAnimationFrame(BALLS_WAR_ANIMATION);class GameMap extends BallsWarObject 
     }
 
     render() {
-        this.ctx.fillStyle="rgba(0 , 0, 0)";
+        this.ctx.fillStyle="rgba(0 , 0, 0, 0.3)";
         this.ctx.fillRect(0 , 0, this.ctx.canvas.width, this.ctx.canvas.height);
         //console.log("render");
     }
-    
+
     start() {
         //this.render();
     }
 
     update() {
         this.render();
-        console.log("123")
+        //console.log("123")
+    }
+}class Player extends BallsWarObject {
+    constructor(playground, x, y ,radius, color, speed , is_me){
+        super();
+        this.playground =playground;
+        this.ctx = this.playground.game_map.ctx;
+        this.x = x;
+        this.y = y;
+        this.vx = 0;
+        this.vy = 0;
+        this.radius = radius;
+        this.color =color;
+        this.speed = speed;
+        this.is_me = is_me;
+        this.eps = 0.1;
+    }
+
+    add_listening_events() {
+        let outer = this;
+        this.playground.game_map.$canvas.on("contextmenu", function() {
+            return false;
+        });
+        this.playground.game_map.$canvas.mousedown(function(e){
+            if(e.witch === 3) {
+                outer.move_to(e.clientx, e.clienty);
+            }
+        });
+    }
+
+    move_to(tx, ty) {
+        console.log("move to ",tx," ", ty);
+    }
+
+    start(){
+        if(this.is_me){
+            this.add_listening_events();
+        }
+    }
+
+    update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.render();
+    }
+
+    render() {
+        this.ctx.beginPath();
+        this.ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+        this.ctx.fillStyle = this.color;
+        this.ctx.fill();
     }
 }class BallsWarPlayground {
     constructor(root) {
@@ -140,7 +190,9 @@ requestAnimationFrame(BALLS_WAR_ANIMATION);class GameMap extends BallsWarObject 
         this.height = this.$playground.height();
         //console.log(this.$playground.height());
         this.game_map = new GameMap(this);
-        
+        this.players = [];
+        this.players.push(new Player(this, this.width / 2, this.height / 2, this.height / 20, "white", this.height * 0.15 ,true));        
+
         this.start();
 }
 

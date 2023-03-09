@@ -12,17 +12,17 @@ class GameMap extends BallsWarObject {
     }
 
     render() {
-        this.ctx.fillStyle="rgba(0 , 0, 0)";
+        this.ctx.fillStyle="rgba(0 , 0, 0, 0.3)";
         this.ctx.fillRect(0 , 0, this.ctx.canvas.width, this.ctx.canvas.height);
         //console.log("render");
     }
-    
+
     start() {
         //this.render();
     }
 
     update() {
         this.render();
-        console.log("123")
+        //console.log("123")
     }
 }
